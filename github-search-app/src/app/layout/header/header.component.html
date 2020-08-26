@@ -1,0 +1,19 @@
+<div>
+    <mat-toolbar color="secondary">
+        <button mat-icon-button class="menu-icon" [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="title">GitHub search repositories</span>
+        <span class="spacer"></span>
+        <button mat-icon-button class="favorite-icon" matTooltip="Coming soon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+        <button mat-icon-button class="share-icon" matTooltip="Coming soon">
+            <mat-icon>share</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-menu #menu="matMenu">
+        <a [routerLink]="'/'" mat-menu-item>Search repositories</a>
+        <a [routerLink]="'/bookmarks'" mat-menu-item>My bookmarked repositories</a>
+    </mat-menu>
+</div>
