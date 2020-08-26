@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
@@ -8,13 +9,32 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    public get<T>(apiUrl: string, ...args: any[]): Observable<T> {
-        const params = new HttpParams();
-        args.forEach(q => {
-            params.set(Object.keys(q)[0], args[q]);
+    public get<T>(apiUrl: string, queryParams: any): Observable<T> {
+        let params = new HttpParams();
+        Object.keys(queryParams).forEach((k: string) => {
+            params = params.set(k, queryParams[k]);
         });
-        console.log(params);
 
-        return this.http.get<T>(`${this.baseUrl}${apiUrl}`, { params });
+        const endPoint = `${this.baseUrl}${apiUrl}`;
+
+        return this.http.get<T>(endPoint, { params })
+            .pipe(
+                tap(_ => console.log(`Get ${endPoint} with params ${JSON.stringify(queryParams)}`)),
+                catchError(this.handleError<T>('getHeroes', null))
+            );
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+
+            // TODO: send the error to remote logging infrastructure
+            console.error(error); // log to console instead
+
+            // TODO: better job of transforming error for user consumption
+            //   this.log(`${operation} failed: ${error.message}`);
+
+            // Let the app keep running by returning an empty result.
+            return of(result as T);
+        };
     }
 }

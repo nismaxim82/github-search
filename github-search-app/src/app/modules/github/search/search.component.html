@@ -1,1 +1,18 @@
-<p>search works!</p>
+<div class="root">
+    <h3>Search repositories</h3>
+    <div class="search-row">
+        <mat-form-field appearance="outline" class="input">
+            <mat-label>Search keywords</mat-label>
+            <input matInput placeholder="Type here to search" (keyup)="handleSearchKeyUp($event)"
+                [formControl]="searchValue">
+            <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+        <button class="search-row-button" mat-button mat-raised-button color="primary"
+            (click)="search()">Search</button>
+    </div>
+    <!-- <div>
+        <div *ngFor="let rep of repositories$ | async">
+            {{rep.total_count}}
+        </div>
+    </div> -->
+</div>
