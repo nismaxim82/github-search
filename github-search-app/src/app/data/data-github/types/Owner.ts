@@ -1,0 +1,20 @@
+export class Owner {
+    "login": string; // "jcoene",
+    "id": number; // 283933,
+    "node_id": string; // "MDQ6VXNlcjI4MzkzMw==",
+    "avatar_url": string; // "https://avatars0.githubusercontent.com/u/283933?v=4",
+    "gravatar_id": string; // "",
+    "url": string; // "https://api.github.com/users/jcoene",
+    "html_url": string; // "https://github.com/jcoene",
+    "followers_url": string; // "https://api.github.com/users/jcoene/followers",
+    "following_url": string; // "https://api.github.com/users/jcoene/following{/other_user}",
+    "gists_url": string; // "https://api.github.com/users/jcoene/gists{/gist_id}",
+    "starred_url": string; // "https://api.github.com/users/jcoene/starred{/owner}{/repo}",
+    "subscriptions_url": string; // "https://api.github.com/users/jcoene/subscriptions",
+    "organizations_url": string; // "https://api.github.com/users/jcoene/orgs",
+    "repos_url": string; // "https://api.github.com/users/jcoene/repos",
+    "events_url": string; // "https://api.github.com/users/jcoene/events{/privacy}",
+    "received_events_url": string; // "https://api.github.com/users/jcoene/received_events",
+    "type": string; // "User",
+    "site_admin": boolean; // false
+}

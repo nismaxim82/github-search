@@ -17,7 +17,7 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Get()
         {
             // Arrange
-            SearchController controller = new SearchController();
+            BookmarksController controller = new BookmarksController();
 
             // Act
             IEnumerable<string> result = controller.Get();
@@ -33,7 +33,7 @@ namespace GitHubSearchApi.Tests.Controllers
         public void GetById()
         {
             // Arrange
-            SearchController controller = new SearchController();
+            BookmarksController controller = new BookmarksController();
 
             // Act
             string result = controller.Get(5);
@@ -46,7 +46,7 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Post()
         {
             // Arrange
-            SearchController controller = new SearchController();
+            BookmarksController controller = new BookmarksController();
 
             // Act
             controller.Post("value");
@@ -58,7 +58,7 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Put()
         {
             // Arrange
-            SearchController controller = new SearchController();
+            BookmarksController controller = new BookmarksController();
 
             // Act
             controller.Put(5, "value");
@@ -70,7 +70,7 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Delete()
         {
             // Arrange
-            SearchController controller = new SearchController();
+            BookmarksController controller = new BookmarksController();
 
             // Act
             controller.Delete(5);

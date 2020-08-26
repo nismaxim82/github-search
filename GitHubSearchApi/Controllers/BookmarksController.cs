@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace GitHubSearchApi.Controllers
 {
-    public class SearchController : ApiController
+    public class BookmarksController : ApiController
     {
         // GET api/values
         public IEnumerable<string> Get()
