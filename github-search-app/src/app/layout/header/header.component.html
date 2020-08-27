@@ -3,8 +3,11 @@
         <button mat-icon-button class="menu-icon" [matMenuTriggerFor]="menu">
             <mat-icon>menu</mat-icon>
         </button>
-        <span class="title">GitHub search repositories</span>
+        <a [routerLink]="'/'" class="title">GitHub search repositories</a>
         <span class="spacer"></span>
+        <a [routerLink]="'bookmarks'" mat-icon-button class="bookmark-icon" matTooltip="My bookmarked repositories">
+            <mat-icon>star</mat-icon>
+        </a>
         <button mat-icon-button class="favorite-icon" matTooltip="Coming soon">
             <mat-icon>favorite</mat-icon>
         </button>

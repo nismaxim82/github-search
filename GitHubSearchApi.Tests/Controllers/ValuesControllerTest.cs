@@ -7,20 +7,26 @@ using System.Web.Http;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GitHubSearchApi;
 using GitHubSearchApi.Controllers;
+using GitHubSearchApi.Repositories;
+using GitHubSearchApi.Models;
 
 namespace GitHubSearchApi.Tests.Controllers
 {
     [TestClass]
     public class ValuesControllerTest
     {
+        private readonly IBookmarksRepository<RepositoryEntry> BookmarksRepository;
+        public ValuesControllerTest(IBookmarksRepository<RepositoryEntry> bookmarksRepository) {
+            this.BookmarksRepository = bookmarksRepository;
+        }
         [TestMethod]
         public void Get()
         {
             // Arrange
-            BookmarksController controller = new BookmarksController();
+            BookmarksController controller = new BookmarksController(this.BookmarksRepository);
 
             // Act
-            IEnumerable<string> result = controller.Get();
+            IEnumerable<RepositoryEntry> result = controller.Get();
 
             // Assert
             Assert.IsNotNull(result);
@@ -33,10 +39,10 @@ namespace GitHubSearchApi.Tests.Controllers
         public void GetById()
         {
             // Arrange
-            BookmarksController controller = new BookmarksController();
+            BookmarksController controller = new BookmarksController(this.BookmarksRepository);
 
             // Act
-            string result = controller.Get(5);
+            RepositoryEntry result = controller.Get(5);
 
             // Assert
             Assert.AreEqual("value", result);
@@ -46,10 +52,12 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Post()
         {
             // Arrange
-            BookmarksController controller = new BookmarksController();
+            BookmarksController controller = new BookmarksController(this.BookmarksRepository);
+
+            RepositoryEntry item = new RepositoryEntry();
 
             // Act
-            controller.Post("value");
+            controller.Post(item);
 
             // Assert
         }
@@ -58,10 +66,12 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Put()
         {
             // Arrange
-            BookmarksController controller = new BookmarksController();
+            BookmarksController controller = new BookmarksController(this.BookmarksRepository);
+
+            RepositoryEntry item = new RepositoryEntry();
 
             // Act
-            controller.Put(5, "value");
+            controller.Put(5, item);
 
             // Assert
         }
@@ -70,7 +80,7 @@ namespace GitHubSearchApi.Tests.Controllers
         public void Delete()
         {
             // Arrange
-            BookmarksController controller = new BookmarksController();
+            BookmarksController controller = new BookmarksController(this.BookmarksRepository);
 
             // Act
             controller.Delete(5);

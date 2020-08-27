@@ -18,4 +18,12 @@ export class BookmarksService {
     getAll(): Observable<Repository[]> {
         return this.apiService.get<Repository[]>(routes.bookmarks);
     }
+
+    post(bookmark: Repository): Observable<void> {
+        return this.apiService.post<Repository>(routes.bookmarks, bookmark);
+    }
+
+    delete(id: number): Observable<void> {
+        return this.apiService.delete<Repository>(routes.bookmarks, id);
+    }
 }

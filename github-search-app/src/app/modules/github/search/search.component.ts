@@ -4,6 +4,7 @@ import { SearchRepositoriesService } from 'src/app/data/data-github/services/Sea
 import { Repositories } from 'src/app/data/data-github/types/Repositories';
 import { FormControl } from '@angular/forms';
 import { BookmarksService } from 'src/app/data/data-api/services/BookmarksService';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search',
@@ -14,6 +15,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   repositories: Repositories;
   bookmarked: number[];
   searchValue = new FormControl('');
+  page = 1;
 
   private subsribtions = new Array<Subscription>();
 
@@ -30,15 +32,23 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   search() {
     if (this.searchValue.value) {
-      this.subsribtions.push(this.searchService.getAllByKeywordAndPage(this.searchValue.value).subscribe((data) => {
+      this.subsribtions.push(this.searchService.getAllByKeywordAndPage(this.searchValue.value, this.page).subscribe((data) => {
         this.repositories = data;
+        this.repositories.items.forEach(i => {
+          i.bookmarked = this.bookmarked.indexOf(i.id) !== -1;
+        })
       }));
     }
   }
 
+  handleButtonSearchClick() {
+    this.page = 1;
+    this.search();
+  }
+
   handleSearchKeyUp(event: KeyboardEvent) {
     if (event.keyCode === 13 || event.key === 'Enter' || event.code === 'Enter') {
-      this.search();
+      this.handleButtonSearchClick();
     }
   }
 
@@ -46,11 +56,20 @@ export class SearchComponent implements OnInit, OnDestroy {
     const bm = this.bookmarked.find(b => b === repId);
     const item = this.repositories.items.find(i => i.id === repId);
     item.bookmarked = !Boolean(bm);
-    if (bm) {
-      this.bookmarked.splice(this.bookmarked.indexOf(bm), 1);
+    if (!item.bookmarked) {
+      this.subsribtions.push(this.bookmarksService.delete(item.id).subscribe(() => {
+        this.bookmarked.splice(this.bookmarked.indexOf(bm), 1);
+      }));
     } else {
-      this.bookmarked.push(repId);
+      this.subsribtions.push(this.bookmarksService.post(item).subscribe(() => {
+        this.bookmarked.push(repId);
+      }));
     }
+  }
+
+  pageChanged(newPage: number) {
+    this.page = newPage;
+    this.search();
   }
 
   ngOnDestroy(): void {

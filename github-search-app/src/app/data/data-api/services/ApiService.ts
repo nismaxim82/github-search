@@ -20,10 +20,32 @@ export class ApiService {
 
         const endPoint = `${this.baseUrl}${apiUrl}`;
 
-        return this.http.get<T>(endPoint, { params })
+        return this.http.get<T>(endPoint, { params, withCredentials: true })
             .pipe(
                 tap(_ => console.log(`Get ${endPoint} with params ${JSON.stringify(queryParams)}`)),
-                catchError(this.handleError<T>('getHeroes', []))
+                catchError(this.handleError<T>('getBookmarks', []))
+            );
+    }
+
+    public post<T>(apiUrl: string, item: T): Observable<any> {
+        const body = item;
+
+        const endPoint = `${this.baseUrl}${apiUrl}`;
+
+        return this.http.post(endPoint, body, { withCredentials: true })
+            .pipe(
+                tap(_ => console.log(`Post ${endPoint} with body ${JSON.stringify(body)}`)),
+                catchError(this.handleError<T>('postBookmark', null))
+            );
+    }
+
+    public delete<T>(apiUrl: string, id: number): Observable<any> {
+        const endPoint = `${this.baseUrl}${apiUrl}/${id}`;
+
+        return this.http.delete(endPoint, { withCredentials: true })
+            .pipe(
+                tap(_ => console.log(`Delete ${endPoint} by id ${id}`)),
+                catchError(this.handleError<T>('deleteBookmark', null))
             );
     }
 

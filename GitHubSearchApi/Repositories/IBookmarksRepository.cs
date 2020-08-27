@@ -9,7 +9,7 @@ namespace GitHubSearchApi.Repositories
     public interface IBookmarksRepository<T>
     {
         IEnumerable<T> GetAll();
-        T Find(string id);
+        T Find(int id);
         void Add(T item);
         void Remove(T item);
         void Update(T item);

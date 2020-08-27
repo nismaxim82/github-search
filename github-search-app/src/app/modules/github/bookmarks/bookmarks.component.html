@@ -1,1 +1,5 @@
-<p>bookmarks works!</p>
+<div class="root">
+    <app-repository-item-cards [hidePaginator]="true" [totalCount]="bookmarkedRepositories?.length"
+        [repositoryItems]="bookmarkedRepositories" (onToggleFavorite)="toggleFavorite($event)">
+    </app-repository-item-cards>
+</div>

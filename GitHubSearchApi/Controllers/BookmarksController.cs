@@ -1,4 +1,5 @@
-﻿using GitHubSearchApi.Repositories;
+﻿using GitHubSearchApi.Models;
+using GitHubSearchApi.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,36 +11,40 @@ namespace GitHubSearchApi.Controllers
 {
     public class BookmarksController : ApiController
     {
-        private readonly IBookmarksRepository BookmarksRepository;
-        public BookmarksController(IBookmarksRepository bookmarksRepository)
+        private readonly IBookmarksRepository<RepositoryEntry> BookmarksRepository;
+        public BookmarksController(IBookmarksRepository<RepositoryEntry> bookmarksRepository)
         {
             this.BookmarksRepository = bookmarksRepository;
         }
-        // GET api/values
-        public IEnumerable<string> Get()
+        // GET api/bookmarks
+        public IEnumerable<RepositoryEntry> Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.BookmarksRepository.GetAll();
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        // GET api/bookmarks/2346262
+        public RepositoryEntry Get(int id)
         {
-            return "value";
+            return this.BookmarksRepository.Find(id);
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        // POST api/bookmarks
+        public void Post([FromBody]RepositoryEntry item)
         {
+            this.BookmarksRepository.Add(item);
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        // PUT api/bookmarks/5
+        public void Put(int id, [FromBody]RepositoryEntry item)
         {
+            this.BookmarksRepository.Update(item);
         }
 
-        // DELETE api/values/5
+        // DELETE api/bookmarks/5
         public void Delete(int id)
         {
+            RepositoryEntry item = this.Get(id);
+            this.BookmarksRepository.Remove(item);
         }
     }
 }

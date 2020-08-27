@@ -20,7 +20,7 @@ export class ApiService {
         return this.http.get<T>(endPoint, { params })
             .pipe(
                 tap(_ => console.log(`Get ${endPoint} with params ${JSON.stringify(queryParams)}`)),
-                catchError(this.handleError<T>('getHeroes', null))
+                catchError(this.handleError<T>('getHeroes', { items: {} } as any))
             );
     }
 
