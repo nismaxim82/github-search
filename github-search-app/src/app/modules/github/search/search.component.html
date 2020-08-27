@@ -1,16 +1,42 @@
-<div class="root">
-    <h3>Search repositories</h3>
+<!--================MATERIAL-UI================-->
+<div *ngIf="currentLibrary === 'material'" class="root">
+    <h3>{{searchRepositoriesHeader}}</h3>
     <div class="search-row">
         <mat-form-field appearance="outline" class="input">
-            <mat-label>Search keywords</mat-label>
-            <input matInput placeholder="Type here to search" (keyup)="handleSearchKeyUp($event)"
+            <mat-label>{{searchLabelText}}</mat-label>
+            <input matInput [placeholder]="searchPlaceholder" (keyup)="handleSearchKeyUp($event)"
                 [formControl]="searchValue">
             <mat-icon matPrefix>search</mat-icon>
         </mat-form-field>
         <button class="search-row-button" mat-button mat-raised-button color="primary"
-            (click)="handleButtonSearchClick()">Search</button>
+            (click)="handleButtonSearchClick()">{{searchButtonText}}</button>
     </div>
     <div class="search-result">
+        <app-repository-item-cards [totalCount]="repositories?.total_count" [repositoryItems]="repositories?.items"
+            (onToggleFavorite)="toggleFavorite($event)" (onPageChanged)="pageChanged($event)">
+        </app-repository-item-cards>
+    </div>
+</div>
+
+<!--==================BOOTSTRAP================-->
+<div *ngIf="currentLibrary === 'bootstrap'" class="bootstrap-root">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>{{searchRepositoriesHeader}}</h3>
+            <div class="search-label">{{searchLabelText}}</div>
+        </div>
+        <div class="col-xs-12 col-sm-7 col-lg-5">
+            <div class="input-group">
+                <input type="text" class="form-control" [placeholder]="searchPlaceholder"
+                    (keyup)="handleSearchKeyUp($event)" [formControl]="searchValue">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button"
+                        (click)="handleButtonSearchClick()">{{searchButtonText}}</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row bootstrap-search-result">
         <app-repository-item-cards [totalCount]="repositories?.total_count" [repositoryItems]="repositories?.items"
             (onToggleFavorite)="toggleFavorite($event)" (onPageChanged)="pageChanged($event)">
         </app-repository-item-cards>

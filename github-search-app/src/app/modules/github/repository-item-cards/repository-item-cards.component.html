@@ -1,29 +1,70 @@
 <div *ngIf="!repositoryItems?.length; then noData else repositoriesItems"></div>
-<ng-template #noData><span *ngIf="repositoryItems">No data</span></ng-template>
+<ng-template #noData><span *ngIf="repositoryItems" [class.bootstrap-no-data]="currentLibrary === 'bootstrap'">No
+        data</span></ng-template>
 <ng-template #repositoriesItems>
     <ng-container *ngTemplateOutlet="paginator"></ng-container>
-    <div *ngFor="let rep of repositoryItems" class="rep-item">
-        <mat-card class="rep-card">
-            <mat-card-header>
-                <div mat-card-avatar class="rep-avatar-image"
-                    [ngStyle]="{'background-image': 'url(' + rep.owner.avatar_url + ')'}">
+    <!--================MATERIAL-UI================-->
+    <ng-container *ngIf="currentLibrary === 'material'">
+        <div *ngFor="let rep of repositoryItems" class="rep-item">
+            <mat-card class="rep-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="rep-avatar-image"
+                        [ngStyle]="{'background-image': 'url(' + rep.owner.avatar_url + ')'}">
+                    </div>
+                    <mat-card-title>
+                        <div class="text-overflow-fix">
+                            <div class="text-overflow">{{rep.full_name}}</div>
+                        </div>
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        <div class="text-overflow-fix">
+                            <a [href]="rep.html_url" target="_blank" class="text-overflow">{{rep.html_url}}</a>
+                        </div>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{rep.description}}</p>
+                </mat-card-content>
+                <mat-card-actions class="rep-card-actions">
+                    <button mat-button matTooltip="Coming soon">LIKE</button>
+                    <button mat-button matTooltip="Coming soon">SHARE</button>
+                    <button mat-icon-button class="favorite-icon" [class.bookmarked]="rep.bookmarked"
+                        [matTooltip]="rep.bookmarked ? 'Remove from favorite' : 'Add to favorite'"
+                        (click)="onToggleFavorite.emit(rep.id)">
+                        <mat-icon>{{rep.bookmarked ? 'star' : 'star_border'}}</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </ng-container>
+
+    <!--==================BOOTSTRAP================-->
+    <div *ngIf="currentLibrary === 'bootstrap'" class="row equal">
+        <div *ngFor="let rep of repositoryItems" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div class="bootstrap-card-root">
+                <div class="row bootstrap-card">
+                    <div class="col-xs-4 rep-avatar-image-cell">
+                        <div class="rep-avatar-image bootstrap-rep-avatar-image"
+                            [ngStyle]="{'background-image': 'url(' + rep.owner.avatar_url + ')'}">
+                        </div>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="text-overflow">{{rep.full_name}}</div>
+                        <div><a [href]="rep.html_url" target="_blank" class="text-overflow">{{rep.html_url}}</a></div>
+                    </div>
+                    <div class="col-xs-12 bootstrap-card-description">
+                        <p>{{rep.description}}</p>
+                    </div>
+                    <div class="col-xs-12 bootstrap-card-favorite">
+                    </div>
+                    <a href="javascript:void(0)" class="bootstrap-card-favorite-button"
+                        [class.bookmarked]="rep.bookmarked" (click)="onToggleFavorite.emit(rep.id)">
+                        <span class="glyphicon" [class.glyphicon-star]="rep.bookmarked"
+                            [class.glyphicon-star-empty]="!rep.bookmarked"></span>
+                    </a>
                 </div>
-                <mat-card-title>{{rep.full_name}}</mat-card-title>
-                <mat-card-subtitle><a [href]="rep.html_url" target="_blank">{{rep.html_url}}</a></mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>{{rep.description}}</p>
-            </mat-card-content>
-            <mat-card-actions class="rep-card-actions">
-                <button mat-button matTooltip="Coming soon">LIKE</button>
-                <button mat-button matTooltip="Coming soon">SHARE</button>
-                <button mat-icon-button class="favorite-icon" [class.bookmarked]="rep.bookmarked"
-                    [matTooltip]="rep.bookmarked ? 'Remove from favorite' : 'Add to favorite'"
-                    (click)="onToggleFavorite.emit(rep.id)">
-                    <mat-icon>{{rep.bookmarked ? 'star' : 'star_border'}}</mat-icon>
-                </button>
-            </mat-card-actions>
-        </mat-card>
+            </div>
+        </div>
     </div>
     <ng-container *ngTemplateOutlet="paginator"></ng-container>
 </ng-template>

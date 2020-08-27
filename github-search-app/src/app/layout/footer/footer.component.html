@@ -1,5 +1,11 @@
-<div>
+<!--================MATERIAL-UI================-->
+<div *ngIf="currentLibrary === 'material'">
     <mat-toolbar color="primary">
         <span class="copyright">&copy; Maxim Nisenblat 2020</span>
     </mat-toolbar>
+</div>
+
+<!--==================BOOTSTRAP================-->
+<div *ngIf="currentLibrary === 'bootstrap'" class="panel-footer">
+    <span class="copyright">&copy; Maxim Nisenblat 2020</span>
 </div>

@@ -1,3 +1,4 @@
+/*============MATERIAL-UI============*/
 :host {
     display: flex;
     flex-wrap: wrap;
@@ -60,4 +61,71 @@
 
 .paginator.last {
     margin-top: 16px;
+}
+
+/*============BOOTSTRAP============*/
+.bootstrap-no-data {
+    margin-left: 15px;
+}
+
+.bootstrap-card-root {
+    padding: 8px;
+    height: 100%;
+}
+
+.bootstrap-card {
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 16px 0;
+    border-radius: 4px;
+    background: #fff;
+    color: rgba(0,0,0,.87);
+    height: 100%;
+    position: relative;
+}
+
+.rep-avatar-image-cell {
+    display: flex;
+    justify-content: center;
+}
+
+.bootstrap-rep-avatar-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.bootstrap-card-description {
+    margin-top: 32px;
+}
+
+.bootstrap-card-favorite-button {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    font-size: 20px;
+    color: #000;
+}
+
+.bootstrap-card-favorite-button.bookmarked {
+    color: red;
+}
+
+.row.equal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.text-overflow-fix {
+    display: grid;
+}
+
+.text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
 }

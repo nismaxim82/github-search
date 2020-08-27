@@ -1,3 +1,4 @@
+/*============MATERIAL-UI============*/
 .title {
     margin-left: 16px;
     color: #000;
@@ -8,6 +9,28 @@
     text-decoration: underline;
 }
 
+.slider {
+    margin-left: 32px;
+}
+
+.radio-library {
+    margin-right: 8px;
+}
+
 .spacer {
     flex: 1 1 auto;
+}
+
+/*============BOOTSTRAP============*/
+.input-group label {
+    padding: 13px;
+}
+
+.input-group label > input {
+    top: 1px;
+    position: relative;
+}
+
+.input-group label > span {
+    margin-left: 5px;
 }

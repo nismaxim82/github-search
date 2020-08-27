@@ -1,29 +1,41 @@
-import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import PageBase from '@shared/PageBase';
+import { BookmarksService } from 'src/app/data/data-api/services/BookmarksService';
 import { SearchRepositoriesService } from 'src/app/data/data-github/services/SearchRepositoriesService';
 import { Repositories } from 'src/app/data/data-github/types/Repositories';
-import { FormControl } from '@angular/forms';
-import { BookmarksService } from 'src/app/data/data-api/services/BookmarksService';
-import { PageEvent } from '@angular/material/paginator';
+import { library, AppService } from '@app/services/AppService';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent extends PageBase implements OnInit {
+  currentLibrary: library;
   repositories: Repositories;
   bookmarked: number[];
   searchValue = new FormControl('');
   page = 1;
+  searchRepositoriesHeader = 'Search repositories';
+  searchLabelText = 'Search keywords';
+  searchPlaceholder = 'Type here to search';
+  searchButtonText = 'Search';
 
-  private subsribtions = new Array<Subscription>();
+  constructor(private searchService: SearchRepositoriesService,
+    private bookmarksService: BookmarksService,
+    private appService: AppService) {
+    super();
 
-  constructor(private searchService: SearchRepositoriesService, private bookmarksService: BookmarksService) { }
+    this.subscribtions.push(appService.execChangeLibrary.subscribe((library) => {
+      this.currentLibrary = library;
+    }));
+  }
 
   ngOnInit(): void {
+    this.currentLibrary = this.appService.currentLibrary;
     this.bookmarked = [];
-    this.subsribtions.push(this.bookmarksService.getAll().subscribe(data => {
+    this.subscribtions.push(this.bookmarksService.getAll().subscribe(data => {
       data.forEach(d => {
         this.bookmarked.push(d.id);
       });
@@ -32,7 +44,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   search() {
     if (this.searchValue.value) {
-      this.subsribtions.push(this.searchService.getAllByKeywordAndPage(this.searchValue.value, this.page).subscribe((data) => {
+      this.subscribtions.push(this.searchService.getAllByKeywordAndPage(this.searchValue.value, this.page).subscribe((data) => {
         this.repositories = data;
         this.repositories.items.forEach(i => {
           i.bookmarked = this.bookmarked.indexOf(i.id) !== -1;
@@ -57,11 +69,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     const item = this.repositories.items.find(i => i.id === repId);
     item.bookmarked = !Boolean(bm);
     if (!item.bookmarked) {
-      this.subsribtions.push(this.bookmarksService.delete(item.id).subscribe(() => {
+      this.subscribtions.push(this.bookmarksService.delete(item.id).subscribe(() => {
         this.bookmarked.splice(this.bookmarked.indexOf(bm), 1);
       }));
     } else {
-      this.subsribtions.push(this.bookmarksService.post(item).subscribe(() => {
+      this.subscribtions.push(this.bookmarksService.post(item).subscribe(() => {
         this.bookmarked.push(repId);
       }));
     }
@@ -70,11 +82,5 @@ export class SearchComponent implements OnInit, OnDestroy {
   pageChanged(newPage: number) {
     this.page = newPage;
     this.search();
-  }
-
-  ngOnDestroy(): void {
-    this.subsribtions.forEach(s => {
-      s.unsubscribe();
-    });
   }
 }

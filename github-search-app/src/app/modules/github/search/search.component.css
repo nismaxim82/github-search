@@ -1,3 +1,4 @@
+/*============MATERIAL-UI============*/
 :host {
     display: flex;
     flex: 1;
@@ -28,4 +29,16 @@
     margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
+}
+
+/*============BOOTSTRAP============*/
+.bootstrap-root {
+    flex: 1;
+    padding: 32px;
+}
+
+.search-label {}
+
+.bootstrap-search-result {
+    margin-top: 32px;
 }

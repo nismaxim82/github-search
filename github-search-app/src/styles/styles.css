@@ -16,3 +16,24 @@ app-root {
     flex: 1;
     flex-direction: column;
 }
+
+/*============MATERIAL-UI============*/
+body.material a:focus {
+    outline: none;
+    outline-offset: 0;
+    text-decoration: none;
+}
+
+body.material a:focus, body.material a:hover {
+    color: inherit;
+}
+
+body.material a:hover {
+    text-decoration: underline;
+}
+
+
+/*============BOOTSTRAP============*/
+body.bootstrap .body {
+    margin-top: 48px;
+}
