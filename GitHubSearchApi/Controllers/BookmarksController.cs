@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GitHubSearchApi.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +10,11 @@ namespace GitHubSearchApi.Controllers
 {
     public class BookmarksController : ApiController
     {
+        private readonly IBookmarksRepository BookmarksRepository;
+        public BookmarksController(IBookmarksRepository bookmarksRepository)
+        {
+            this.BookmarksRepository = bookmarksRepository;
+        }
         // GET api/values
         public IEnumerable<string> Get()
         {

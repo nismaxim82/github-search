@@ -1,5 +1,11 @@
+:host {
+    display: flex;
+    flex: 1;
+}
+
 .root {
     display: flex;
+    flex: 1;
     padding: 32px;
     flex-direction: column;
 }
@@ -16,4 +22,52 @@
 .input {
     flex: 1;
     max-width: 400px;
+}
+
+.search-result {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rep-item {
+	display: flex; 
+    padding: 0.5em;
+	width: 100%;
+}
+
+@media all and (min-width: 40em) {
+    .rep-item {
+        width: 50%;
+    }
+}
+@media all and (min-width: 60em) {
+    .rep-item {
+        width: 30%;
+    }
+}
+
+.rep-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.rep-card-actions {
+    flex: 1 0 auto;
+    position: relative;
+}
+
+.favorite-icon {
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+}
+
+.rep-avatar-image {
+    background-size: cover;
+}
+
+.bookmarked {
+    color: red;
 }

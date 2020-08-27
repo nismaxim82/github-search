@@ -11,7 +11,7 @@ const routes = {
 @Injectable({
     providedIn: 'root'
 })
-export class SearchRepositories {
+export class SearchRepositoriesService {
     constructor(private apiService: ApiService) {
     }
 

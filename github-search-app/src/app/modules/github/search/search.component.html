@@ -10,9 +10,33 @@
         <button class="search-row-button" mat-button mat-raised-button color="primary"
             (click)="search()">Search</button>
     </div>
-    <!-- <div>
-        <div *ngFor="let rep of repositories$ | async">
-            {{rep.total_count}}
-        </div>
-    </div> -->
+    <div class="search-result">
+        <div *ngIf="!repositories?.items?.length; then noData else repositoriesItems"></div>
+        <ng-template #noData><span *ngIf="repositories">No data</span></ng-template>
+        <ng-template #repositoriesItems>
+            <div *ngFor="let rep of repositories.items" class="rep-item">
+                <mat-card class="rep-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="rep-avatar-image"
+                            [ngStyle]="{'background-image': 'url(' + rep.owner.avatar_url + ')'}">
+                        </div>
+                        <mat-card-title>{{rep.full_name}}</mat-card-title>
+                        <mat-card-subtitle>{{rep.html_url}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>{{rep.description}}</p>
+                    </mat-card-content>
+                    <mat-card-actions class="rep-card-actions">
+                        <button mat-button matTooltip="Coming soon">LIKE</button>
+                        <button mat-button matTooltip="Coming soon">SHARE</button>
+                        <button mat-icon-button class="favorite-icon" [class.bookmarked]="rep.bookmarked"
+                            [matTooltip]="rep.bookmarked ? 'Remove from favorite' : 'Add to favorite'"
+                            (click)="toggleFavorite(rep.id)">
+                            <mat-icon>{{rep.bookmarked ? 'star' : 'star_border'}}</mat-icon>
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </ng-template>
+    </div>
 </div>

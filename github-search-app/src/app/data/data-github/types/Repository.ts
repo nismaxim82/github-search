@@ -2,6 +2,7 @@ import { License } from './License';
 import { Owner } from './Owner';
 
 export class Repository {
+    bookmarked: boolean;
     "id": number; // 2346262,
     "node_id": string; // "MDEwOlJlcG9zaXRvcnkyMzQ2MjYy",
     "name": string; // "mongoid-searchable",
